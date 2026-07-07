@@ -1,75 +1,84 @@
-# React + TypeScript + Vite
+# GitHub First Commit Finder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A polished React + TypeScript application that helps you discover the very first commit of any public GitHub repository in seconds. Built with Vite and modern UI tooling, the project makes repository history exploration simple, fast, and visually appealing.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+GitHub First Commit Finder lets users enter a repository URL and instantly retrieve:
 
-## React Compiler
+- the initial commit SHA
+- the commit message
+- the author name
+- the commit date
+- a shareable link to the result
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This project is ideal for developers, researchers, and open-source enthusiasts who want to trace the origin of a repository or understand how a project began.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Fast lookup of a repository's first commit
+- Clean, modern interface built with React and Tailwind CSS
+- Shareable result links using URL parameters
+- Copy-to-clipboard support for commit SHAs
+- Responsive design for desktop and mobile use
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Three.js / React Three Fiber
+- GitHub REST API
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Getting Started
 
+### Prerequisites
+
+- Node.js 18+
+- npm
+
+### Installation
+
+```bash
+git clone https://github.com/asifshaik48626-cloud/github-first-commit.git
+cd github-first-commit
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Run locally
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm run dev
 ```
+
+Then open http://localhost:5173 in your browser.
+
+### Build for production
+
+```bash
+npm run build
+```
+
+## Usage
+
+1. Open the app in your browser.
+2. Enter a public GitHub repository URL.
+3. Click "Find First Commit".
+4. Review the first commit details and copy the SHA if needed.
+
+## Project Structure
+
+```text
+src/
+  components/      # Reusable UI components
+  services/        # GitHub API helpers
+  App.tsx          # Main application UI
+  main.tsx         # App entry point
+```
+
+## License
+
+This project is currently for personal and educational use.
+
