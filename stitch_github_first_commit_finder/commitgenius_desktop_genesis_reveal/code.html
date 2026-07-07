@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CommitGenius | GitHub First Commit Finder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;family=Geist:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#4d8eff",
+                    "on-tertiary-fixed-variant": "#004e5c",
+                    "surface-tint": "#adc6ff",
+                    "on-surface": "#dee1f9",
+                    "surface-bright": "#34394a",
+                    "on-background": "#dee1f9",
+                    "surface-container-lowest": "#080d1d",
+                    "surface-container-low": "#161b2b",
+                    "surface-container-high": "#25293a",
+                    "secondary-container": "#571bc1",
+                    "on-error-container": "#ffdad6",
+                    "primary": "#adc6ff",
+                    "on-primary-fixed": "#001a42",
+                    "on-primary-container": "#00285d",
+                    "outline-variant": "#424754",
+                    "surface-dim": "#0e1323",
+                    "on-surface-variant": "#c2c6d6",
+                    "error-container": "#93000a",
+                    "tertiary-container": "#009eb9",
+                    "background": "#0e1323",
+                    "inverse-surface": "#dee1f9",
+                    "tertiary-fixed-dim": "#4cd7f6",
+                    "on-primary-fixed-variant": "#004395",
+                    "primary-fixed": "#d8e2ff",
+                    "on-tertiary-fixed": "#001f26",
+                    "on-tertiary": "#003640",
+                    "tertiary-fixed": "#acedff",
+                    "inverse-primary": "#005ac2",
+                    "secondary": "#d0bcff",
+                    "error": "#ffb4ab",
+                    "inverse-on-surface": "#2b3041",
+                    "surface-variant": "#2f3446",
+                    "surface-container-highest": "#2f3446",
+                    "tertiary": "#4cd7f6",
+                    "outline": "#8c909f",
+                    "on-secondary": "#3c0091",
+                    "surface-container": "#1a1f30",
+                    "surface": "#0e1323",
+                    "on-secondary-fixed": "#23005c",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "on-secondary-container": "#c4abff",
+                    "secondary-fixed": "#e9ddff",
+                    "on-tertiary-container": "#002f38",
+                    "primary-fixed-dim": "#adc6ff",
+                    "on-primary": "#002e6a",
+                    "on-error": "#690005",
+                    "on-secondary-fixed-variant": "#5516be"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-padding": "2rem",
+                    "base": "8px",
+                    "max-width": "1200px",
+                    "card-gap": "1.5rem",
+                    "section-margin": "4rem"
+            },
+            "fontFamily": {
+                    "label-sm": ["JetBrains Mono"],
+                    "headline-lg": ["Geist"],
+                    "headline-md": ["Geist"],
+                    "display": ["Geist"],
+                    "body-md": ["Geist"],
+                    "label-md": ["JetBrains Mono"],
+                    "body-lg": ["Geist"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "display": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0e1323;
+            color: #dee1f9;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .inner-glow {
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .grid-bg {
+            background-image: linear-gradient(rgba(173, 198, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(173, 198, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        .light-leak-border {
+            border: 1px solid transparent;
+            background: linear-gradient(#1a1f30, #1a1f30) padding-box,
+                        linear-gradient(45deg, rgba(173, 198, 255, 0.3), transparent, rgba(208, 188, 255, 0.3)) border-box;
+        }
+
+        .button-glow:hover {
+            box-shadow: 0 0 20px rgba(173, 198, 255, 0.4);
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .scan-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #adc6ff, transparent);
+            animation: scan 3s linear infinite;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased">
+<!-- Animated Shader Background -->
+
+<div class="fixed inset-0 grid-bg -z-20"></div>
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 border-b border-white/10 bg-surface/10 backdrop-blur-xl shadow-[0_0_20px_rgba(173,198,255,0.1)]">
+<nav class="flex justify-between items-center max-w-[1200px] mx-auto px-container-padding h-16">
+<div class="flex items-center gap-2 group cursor-pointer">
+<span class="material-symbols-outlined text-primary text-3xl transition-transform group-hover:rotate-12">terminal</span>
+<span class="font-display text-headline-md font-bold text-primary tracking-tighter">CommitGenius</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-primary font-bold transition-colors hover:text-primary" href="#">Finder</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="#">Features</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="#">Docs</a>
+</div>
+<button class="bg-primary text-on-primary-fixed font-bold px-6 py-2 rounded-full active:scale-95 transition-transform flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">link</span>
+                GitHub
+            </button>
+</nav>
+</header>
+<main class="relative pt-32 pb-section-margin max-w-[1200px] mx-auto px-container-padding">
+<!-- Hero Section -->
+<section class="flex flex-col md:flex-row items-center gap-12 mb-section-margin">
+<div class="flex-1 space-y-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">New Engine v2.0</span>
+</div>
+<h1 class="font-display text-display text-on-background leading-tight">
+                    GitHub First <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Commit Finder</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                    Discover the very first commit of any public GitHub repository in seconds. Uncover the humble beginnings of your favorite open-source projects.
+                </p>
+<div class="flex flex-wrap gap-3">
+<div class="px-3 py-1 glass-panel rounded-lg flex items-center gap-2 font-label-sm text-label-sm">
+<span class="text-primary">React</span>
+</div>
+<div class="px-3 py-1 glass-panel rounded-lg flex items-center gap-2 font-label-sm text-label-sm">
+<span class="text-secondary">TypeScript</span>
+</div>
+<div class="px-3 py-1 glass-panel rounded-lg flex items-center gap-2 font-label-sm text-label-sm">
+<span class="text-tertiary">Tailwind</span>
+</div>
+<div class="px-3 py-1 glass-panel rounded-lg flex items-center gap-2 font-label-sm text-label-sm">
+<span class="text-primary-container">GitHub API</span>
+</div>
+</div>
+</div>
+<div class="flex-1 relative aspect-square w-full max-w-md">
+<div class="absolute inset-0 bg-primary/10 blur-[100px] rounded-full"></div>
+
+</div>
+</section>
+<!-- Search Bar Section -->
+<section class="mb-section-margin relative">
+<div class="glass-panel p-8 rounded-[24px] light-leak-border">
+<div class="max-w-3xl mx-auto flex flex-col md:flex-row gap-4">
+<div class="relative flex-grow group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full h-14 pl-12 pr-4 bg-[#050810] border-white/10 rounded-xl text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-all font-body-md" placeholder="https://github.com/facebook/react" type="text"/>
+</div>
+<button class="h-14 px-8 bg-gradient-to-r from-primary-container to-secondary-container text-white font-bold rounded-xl button-glow transition-all active:scale-95 flex items-center justify-center gap-2">
+                        Find First Commit
+                        <span class="material-symbols-outlined">rocket_launch</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Sample Result: facebook/react -->
+<section class="mb-section-margin">
+<div class="flex items-center gap-4 mb-6">
+<span class="h-[1px] flex-grow bg-white/10"></span>
+<h2 class="font-label-md text-label-md text-on-surface-variant tracking-[0.2em] uppercase">Latest Query Result</h2>
+<span class="h-[1px] flex-grow bg-white/10"></span>
+</div>
+<div class="glass-panel rounded-[24px] p-1 overflow-hidden relative group">
+<div class="absolute inset-0 scan-line opacity-20 pointer-events-none"></div>
+<div class="bg-surface-container rounded-[22px] p-8 md:p-10 flex flex-col md:flex-row gap-10">
+<div class="flex-1 space-y-6">
+<div class="flex items-center gap-4">
+<img class="w-12 h-12 rounded-xl object-cover bg-surface-container-high border border-white/10" data-alt="A professional 3D render of the GitHub Octocat logo with translucent glass material and neon blue circuitry highlights, futuristic developer aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCI_mqNRoD7o-QJyyhRfhqLSerCOFDl1wcz5Obw6zbQStWQZy4AL7HaWWw1cimReWD-nXL3Z_PfC66MPx34fvcTEQqDGkUyaP1KKQIFpU7jDWsZW650HC8yL3nHapVmOmMIyFtZWsztEDmi8RHMR0MOoX0XIbv3-fK0nxaxE6bgGrN-2NNRRzl63i03bh3EsbuZXv3vZBfNidzGPv3wXYu-Mfz7zHjz4r-uQavGh3pCdiQHWjMP_WStEA"/>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">facebook / react</h3>
+<p class="text-on-surface-variant font-label-sm">Found in 0.84 seconds</p>
+</div>
+</div>
+<div class="p-6 bg-surface-container-low rounded-2xl border border-white/5 space-y-4">
+<div class="flex justify-between items-start">
+<span class="font-label-md text-primary bg-primary/10 px-2 py-0.5 rounded">FIRST COMMIT</span>
+<span class="font-label-sm text-on-surface-variant">May 29, 2013</span>
+</div>
+<h4 class="text-2xl font-semibold leading-snug">Initial commit: Hello World!</h4>
+<div class="flex items-center gap-3">
+<img class="w-8 h-8 rounded-full border border-primary/30" data-alt="A high-quality studio portrait profile photo of a software engineer, soft atmospheric lighting, blue and violet color grade, futuristic UI backdrop." src="https://lh3.googleusercontent.com/aida-public/AB6AXuChbGenBMKOIW5oPV444iWuDygiDlFNLycAdN-Bfedtv0q94mQKHs8NoJrg2AGIgJ1CSS8pri7kXjJehnH3zC9R6G8e1E3zOkY2o4mLvGcBHnnVWCB0lyo8zVAKEGqv0CDBWkLAXWySQ9lgEsD7eshOojt_lhqQ1GqhHKiPRJaDIN4F_7OcZSADXdmfwol80Q5oiOmQZX2wW0TjnhSdgm3vr7x-n8xk-6oOBr2wgB4x7Hpc_XU3w-LnzA"/>
+<span class="font-medium text-on-surface">zpao</span>
+<span class="text-on-surface-variant text-sm">Paul O'Shannessy</span>
+</div>
+</div>
+</div>
+<div class="w-full md:w-80 flex flex-col justify-between">
+<div class="space-y-4">
+<div class="flex justify-between items-center py-3 border-b border-white/5">
+<span class="text-on-surface-variant">SHA</span>
+<code class="font-label-sm text-secondary">6e28d84...</code>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-white/5">
+<span class="text-on-surface-variant">Files Changed</span>
+<span class="text-on-surface">114</span>
+</div>
+<div class="flex justify-between items-center py-3 border-b border-white/5">
+<span class="text-on-surface-variant">Additions</span>
+<span class="text-tertiary font-bold">+18,452</span>
+</div>
+<div class="flex justify-between items-center py-3">
+<span class="text-on-surface-variant">Platform</span>
+<span class="text-primary-container flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">cloud</span> API v3
+                                </span>
+</div>
+</div>
+<button class="w-full py-4 mt-6 glass-panel rounded-xl text-primary font-bold hover:bg-primary/10 transition-colors border-primary/20">
+                            View Commit on GitHub
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- How it Works -->
+<section class="mb-section-margin">
+<h2 class="font-display text-headline-lg text-on-background mb-12 text-center">Engineered for Speed</h2>
+<div class="grid md:grid-cols-3 gap-card-gap">
+<!-- Card 1 -->
+<div class="glass-panel p-8 rounded-[24px] group hover:bg-white/5 transition-all">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">api</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4">Binary Search</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                        Instead of scanning every page, our engine uses an optimized binary search algorithm across the GitHub REST API to locate the genesis point.
+                    </p>
+</div>
+<!-- Card 2 -->
+<div class="glass-panel p-8 rounded-[24px] group hover:bg-white/5 transition-all">
+<div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center mb-6 text-secondary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4">Instant Cache</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                        Popular repositories like React, Next.js, and Tailwind are cached on our global edge network for sub-100ms response times.
+                    </p>
+</div>
+<!-- Card 3 -->
+<div class="glass-panel p-8 rounded-[24px] group hover:bg-white/5 transition-all">
+<div class="w-12 h-12 rounded-xl bg-tertiary/10 flex items-center justify-center mb-6 text-tertiary group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">analytics</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-4">Meta Analysis</h3>
+<p class="text-on-surface-variant leading-relaxed">
+                        We extract more than just the commit. Get insights into the early file structure, original maintainers, and repo age instantly.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-margin border-t border-white/5 bg-surface mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-[1200px] mx-auto px-container-padding font-label-md text-label-md">
+<div class="flex items-center gap-2 mb-4 md:mb-0">
+<span class="font-display text-headline-md font-bold text-primary">CommitGenius</span>
+<span class="text-on-surface-variant opacity-50 ml-4">© 2024 CommitGenius</span>
+</div>
+<div class="flex gap-12">
+<a class="text-on-surface-variant hover:text-secondary transition-colors underline-offset-4 hover:underline" href="#">GitHub</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors underline-offset-4 hover:underline" href="#">LinkedIn</a>
+<a class="text-on-surface-variant hover:text-secondary transition-colors underline-offset-4 hover:underline" href="#">Privacy</a>
+</div>
+</div>
+</footer>
+<script>
+        // Micro-interaction for the search input
+        const input = document.querySelector('input');
+        input.addEventListener('focus', () => {
+            input.parentElement.parentElement.classList.add('shadow-[0_0_50px_rgba(173,198,255,0.15)]');
+        });
+        input.addEventListener('blur', () => {
+            input.parentElement.parentElement.classList.remove('shadow-[0_0_50px_rgba(173,198,255,0.15)]');
+        });
+
+        // Floating elements effect
+        document.addEventListener('mousemove', (e) => {
+            const amount = 20;
+            const x = (e.clientX / window.innerWidth - 0.5) * amount;
+            const y = (e.clientY / window.innerHeight - 0.5) * amount;
+            
+            const heroes = document.querySelectorAll('.glass-panel');
+            heroes.forEach(panel => {
+                panel.style.transform = `translate(${x}px, ${y}px)`;
+                panel.style.transition = 'transform 0.1s linear';
+            });
+        });
+    </script>
+</body></html>

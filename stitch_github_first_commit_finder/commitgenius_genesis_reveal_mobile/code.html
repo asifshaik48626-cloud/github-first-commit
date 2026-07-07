@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CommitGenius | Find Your Origins</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#0e1323",
+                    "tertiary-container": "#009eb9",
+                    "surface-container": "#1a1f30",
+                    "surface-bright": "#34394a",
+                    "error": "#ffb4ab",
+                    "surface-container-low": "#161b2b",
+                    "on-secondary-container": "#c4abff",
+                    "secondary": "#d0bcff",
+                    "on-secondary-fixed": "#23005c",
+                    "error-container": "#93000a",
+                    "primary-container": "#4d8eff",
+                    "on-background": "#dee1f9",
+                    "tertiary": "#4cd7f6",
+                    "surface-container-highest": "#2f3446",
+                    "outline-variant": "#424754",
+                    "surface-container-high": "#25293a",
+                    "on-primary-fixed": "#001a42",
+                    "on-tertiary-container": "#002f38",
+                    "surface-container-lowest": "#080d1d",
+                    "tertiary-fixed-dim": "#4cd7f6",
+                    "surface-dim": "#0e1323",
+                    "on-tertiary": "#003640",
+                    "on-secondary": "#3c0091",
+                    "on-error": "#690005",
+                    "secondary-container": "#571bc1",
+                    "on-primary": "#002e6a",
+                    "tertiary-fixed": "#acedff",
+                    "primary-fixed-dim": "#adc6ff",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-tint": "#adc6ff",
+                    "on-surface-variant": "#c2c6d6",
+                    "secondary-fixed": "#e9ddff",
+                    "on-error-container": "#ffdad6",
+                    "surface-variant": "#2f3446",
+                    "on-primary-container": "#00285d",
+                    "surface": "#0e1323",
+                    "inverse-surface": "#dee1f9",
+                    "inverse-on-surface": "#2b3041",
+                    "on-secondary-fixed-variant": "#5516be",
+                    "on-primary-fixed-variant": "#004395",
+                    "inverse-primary": "#005ac2",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "on-surface": "#dee1f9",
+                    "on-tertiary-fixed": "#001f26",
+                    "primary": "#adc6ff",
+                    "on-tertiary-fixed-variant": "#004e5c",
+                    "outline": "#8c909f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "section-margin": "4rem",
+                    "card-gap": "1.5rem",
+                    "base": "8px",
+                    "max-width": "1200px",
+                    "container-padding": "2rem"
+            },
+            "fontFamily": {
+                    "headline-md": ["Geist"],
+                    "headline-lg": ["Geist"],
+                    "label-md": ["JetBrains Mono"],
+                    "label-sm": ["JetBrains Mono"],
+                    "body-md": ["Geist"],
+                    "headline-lg-mobile": ["Geist"],
+                    "display": ["Geist"],
+                    "body-lg": ["Geist"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "display": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0e1323;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+
+        .grid-overlay {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        .glow-accent {
+            filter: blur(60px);
+            opacity: 0.15;
+            background: radial-gradient(circle, #4d8eff 0%, #d0bcff 100%);
+        }
+
+        .animate-scan {
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(1000%); }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- Ambient Background Elements -->
+<div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+<div class="absolute inset-0 grid-overlay"></div>
+<div class="absolute top-[-10%] left-[-20%] w-[80%] h-[60%] glow-accent rounded-full"></div>
+<div class="absolute bottom-[-10%] right-[-20%] w-[80%] h-[60%] glow-accent rounded-full bg-secondary opacity-10"></div>
+<!-- Animated Particles Placeholder -->
+<div class="absolute inset-0" id="particles-container"></div>
+</div>
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-surface/10 backdrop-blur-xl border-b border-white/10">
+<div class="flex justify-between items-center max-w-[1200px] mx-auto px-6 h-16">
+<div class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">terminal</span>
+                CommitGenius
+            </div>
+<div class="hidden md:flex gap-8">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Home</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-label-md text-label-md" href="#">Explore</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300 font-label-md text-label-md" href="#">History</a>
+</div>
+<button class="bg-primary text-on-primary px-5 py-2 rounded-full font-label-md text-label-md font-bold active:scale-95 transition-transform">
+                GitHub
+            </button>
+</div>
+</nav>
+<main class="pt-24 pb-20 px-6 max-w-[500px] mx-auto">
+<!-- Hero: 3D Visual -->
+<section class="relative h-[320px] flex items-center justify-center mb-4">
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-64 h-64 bg-primary/10 rounded-full blur-[80px]"></div>
+</div>
+<div class="relative z-10 floating">
+<img class="w-56 h-56 object-contain drop-shadow-[0_0_30px_rgba(77,142,255,0.4)]" data-alt="A stylized, translucent 3D glass sculpture of the GitHub Octocat logo, illuminated from within by iridescent blue and purple neon light. The figure is surrounded by glowing digital circuit patterns and floating data points against a deep obsidian background, creating a high-performance, futuristic aesthetic that emphasizes transparency and depth." src="https://lh3.googleusercontent.com/aida/AP1WRLuBeSkqDN54SwPOHRDzAPAN6lqmHOw-4Dl2ypmU3pyuHu0oUM8yBBte-diHSc2H0F153oiSHJmXLzxz615WTw4Ee3ElgS2hGmfzmc8Ol3rGDuXAW5wh6UMvbBEldtGOEOS_F9gQI1p1H_ynaIPSsCa5rwTJwrGQLf_o8_ZpY60MmWrCry8yjjlJXU4xtC59LfZVYWRzaXJ-qFl422X7i3mFnuUoSd0XKEPeZGMJmlYmzBBrryfnl163E-U"/>
+</div>
+</section>
+<!-- Headline -->
+<header class="text-center mb-8">
+<h1 class="font-display text-4xl mb-3 tracking-tight">Trace Your <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-tertiary to-secondary">Legacy</span></h1>
+<p class="text-on-surface-variant font-body-md">Uncover the genesis of open source projects with high-precision history tracking.</p>
+</header>
+<!-- Search Card -->
+<div class="glass-card rounded-2xl p-6 mb-12 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+<div class="space-y-4">
+<div class="relative group">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-outline material-symbols-outlined">link</span>
+<input class="w-full bg-surface-container-lowest border border-white/10 rounded-xl py-4 pl-12 pr-4 text-on-surface focus:outline-none focus:border-primary/50 transition-all font-label-md placeholder:text-outline/50" placeholder="owner/repository" type="text"/>
+</div>
+<button class="w-full bg-gradient-to-r from-primary-container to-secondary-container py-4 rounded-xl font-headline-md text-headline-md text-white shadow-[0_10px_20px_rgba(77,142,255,0.3)] hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">rocket_launch</span>
+                    Find First Commit
+                </button>
+</div>
+<div class="mt-4 flex justify-center gap-4">
+<div class="flex items-center gap-1 text-label-sm text-outline">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+                    14k searches today
+                </div>
+<div class="flex items-center gap-1 text-label-sm text-outline">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+                    Sub-second retrieval
+                </div>
+</div>
+</div>
+<!-- Featured Result Card -->
+<section class="mb-12">
+<h3 class="font-label-md text-label-md text-primary mb-4 flex items-center gap-2">
+<span class="w-8 h-[1px] bg-primary/30"></span>
+                FEATURED ORIGIN
+            </h3>
+<div class="glass-card rounded-2xl p-0 border-primary/20 bg-primary/5 overflow-hidden">
+<div class="p-6 border-b border-white/5">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-headline-md text-headline-md">facebook/react</h4>
+<p class="text-label-sm text-outline font-mono">ID: 10270250</p>
+</div>
+<span class="bg-tertiary/10 text-tertiary px-3 py-1 rounded-full text-label-sm font-bold border border-tertiary/20">May 2013</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full border border-white/10 bg-white/5 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist, professional portrait of a software developer with a clean, high-tech background. The lighting is moody and focused, with cool blue highlights reflecting off a glass surface, maintaining the futuristic command-center aesthetic of the platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9XvoucmyviRyxCFNKT0StnKRswwUw_DRUOskMIh4GuZ5uFH85MMzC-rQWf-gpX0APmJ4js0QzRNhAh5tbzeA0YifFWt7E2uWHWzaqRF6cSdXxyqKFuoU_8DsQV-MZbVGFd3szgdRwloMgG6_l-ftLh3GsoNRPjQL-cL84PQciAea5j2DMRG8GtGX_955NgvtWT4TkWIUIqdspssNFbqtQWgkVhdYtk2seRTv_CCIB4SCEVskqi4uuIA"/>
+</div>
+<div>
+<p class="text-label-md font-bold">Jordan Walke</p>
+<p class="text-label-sm text-outline">Initial public release</p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container/50 p-4 font-mono text-[11px] leading-relaxed overflow-x-auto whitespace-nowrap text-tertiary/70 border-t border-white/5">
+<span class="text-secondary">commit</span> e6f4b66<br/>
+                    Author: Jordan Walke &lt;jwalke@fb.com&gt;<br/>
+                    Date:   Wed May 29 11:32:00 2013 -0700<br/><br/>
+                    Initial public release of React.
+                </div>
+</div>
+</section>
+<!-- Process: How It Works -->
+<section class="space-y-8 mb-20">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-center">Engineered for <span class="text-primary">Precision</span></h2>
+<div class="grid gap-6">
+<!-- Step 1 -->
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-12 h-12 glass-panel rounded-xl flex items-center justify-center font-headline-md text-primary">
+                        1
+                    </div>
+<div>
+<h4 class="font-headline-md text-headline-md mb-1">Index Analysis</h4>
+<p class="text-on-surface-variant text-sm">Our neural engine scans through millions of repository branches to identify the absolute root node of the project.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-12 h-12 glass-panel rounded-xl flex items-center justify-center font-headline-md text-tertiary">
+                        2
+                    </div>
+<div>
+<h4 class="font-headline-md text-headline-md mb-1">Origin Verification</h4>
+<p class="text-on-surface-variant text-sm">Multi-node validation ensures the first commit isn't just a force-push but the genuine start of the codebase.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="flex gap-4">
+<div class="flex-shrink-0 w-12 h-12 glass-panel rounded-xl flex items-center justify-center font-headline-md text-secondary">
+                        3
+                    </div>
+<div>
+<h4 class="font-headline-md text-headline-md mb-1">Context Enrichment</h4>
+<p class="text-on-surface-variant text-sm">We pull author profiles and historical context to give you the full story behind the very first 'git push'.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA -->
+<div class="glass-card rounded-3xl p-8 text-center bg-gradient-to-br from-primary/10 to-transparent border-primary/20">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-4">Ready to explore?</h3>
+<p class="text-on-surface-variant mb-6">Join 50k+ developers discovering the roots of the software that powers the world.</p>
+<button class="bg-white text-background font-bold px-8 py-3 rounded-xl active:scale-95 transition-transform">Get Started Free</button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-8 bg-background border-t border-white/5 mt-20">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-[1200px] mx-auto px-6 gap-6">
+<div class="font-headline-md text-headline-md text-primary font-bold">CommitGenius</div>
+<div class="flex gap-8 font-label-sm text-label-sm text-on-surface-variant">
+<a class="hover:text-tertiary transition-colors" href="#">GitHub</a>
+<a class="hover:text-tertiary transition-colors" href="#">LinkedIn</a>
+<a class="hover:text-tertiary transition-colors" href="#">Privacy</a>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant/50">© 2024 CommitGenius. All rights reserved.</p>
+</div>
+</footer>
+<script>
+        // Simple particle system for the background
+        const container = document.getElementById('particles-container');
+        const particleCount = 15;
+
+        for (let i = 0; i < particleCount; i++) {
+            const p = document.createElement('div');
+            p.className = 'absolute bg-primary/20 rounded-full blur-[2px] pointer-events-none';
+            const size = Math.random() * 4 + 2;
+            p.style.width = `${size}px`;
+            p.style.height = `${size}px`;
+            
+            // Random positions
+            p.style.top = `${Math.random() * 100}%`;
+            p.style.left = `${Math.random() * 100}%`;
+            
+            // Animation logic
+            const duration = Math.random() * 10 + 5;
+            p.style.transition = `all ${duration}s linear`;
+            
+            container.appendChild(p);
+
+            // Move them around
+            setInterval(() => {
+                p.style.top = `${Math.random() * 100}%`;
+                p.style.left = `${Math.random() * 100}%`;
+                p.style.opacity = Math.random();
+            }, duration * 1000);
+        }
+
+        // Search button interaction
+        const searchBtn = document.querySelector('button.bg-gradient-to-r');
+        searchBtn.addEventListener('click', () => {
+            const ripple = document.createElement('span');
+            ripple.className = 'absolute inset-0 bg-white/20 animate-ping rounded-xl pointer-events-none';
+            searchBtn.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 500);
+        });
+    </script>
+</body></html>

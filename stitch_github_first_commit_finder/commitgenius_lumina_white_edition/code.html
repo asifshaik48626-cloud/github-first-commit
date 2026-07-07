@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CommitGenius | GitHub First Commit Finder</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#005ac2",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f8f9fa",
+                    "primary": "#0058be",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "primary-fixed-dim": "#adc6ff",
+                    "primary-container": "#2170e4",
+                    "on-primary-container": "#fefcff",
+                    "on-secondary-fixed": "#1b1b1b",
+                    "surface-container-highest": "#e1e3e4",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "surface-container-high": "#e7e8e9",
+                    "on-secondary-container": "#646464",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "on-tertiary": "#ffffff",
+                    "secondary-fixed-dim": "#c6c6c6",
+                    "tertiary-fixed": "#d3e4fe",
+                    "inverse-on-surface": "#f0f1f2",
+                    "inverse-surface": "#2e3132",
+                    "on-primary-fixed": "#001a42",
+                    "primary-fixed": "#d8e2ff",
+                    "surface-container-low": "#f3f4f5",
+                    "secondary": "#5e5e5e",
+                    "on-surface-variant": "#424754",
+                    "error": "#ba1a1a",
+                    "secondary-container": "#e2e2e2",
+                    "outline-variant": "#c2c6d6",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#adc6ff",
+                    "surface-variant": "#e1e3e4",
+                    "surface-container": "#edeeef",
+                    "outline": "#727785",
+                    "tertiary-container": "#66768d",
+                    "on-secondary-fixed-variant": "#474747",
+                    "on-surface": "#191c1d",
+                    "on-tertiary-container": "#fdfcff",
+                    "secondary-fixed": "#e2e2e2",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#4d5d73",
+                    "surface-dim": "#d9dadb",
+                    "on-primary-fixed-variant": "#004395",
+                    "on-background": "#191c1d",
+                    "background": "#f8f9fa",
+                    "on-primary": "#ffffff",
+                    "surface": "#f8f9fa",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "max-width": "1200px",
+                    "card-gap": "1.5rem",
+                    "section-margin": "4rem",
+                    "container-padding": "2rem"
+            },
+            "fontFamily": {
+                    "label-md": ["JetBrains Mono"],
+                    "display": ["Geist"],
+                    "headline-lg": ["Geist"],
+                    "headline-md": ["Geist"],
+                    "headline-lg-mobile": ["Geist"],
+                    "body-lg": ["Geist"],
+                    "body-md": ["Geist"],
+                    "label-sm": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "display": ["56px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #f8f9fa;
+            color: #191c1d;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.06), 0 2px 8px -1px rgba(0, 0, 0, 0.04);
+        }
+
+        .glow-hover:hover {
+            box-shadow: 0 12px 40px -2px rgba(0, 88, 190, 0.08);
+            border-color: rgba(0, 88, 190, 0.2);
+        }
+
+        .grid-overlay {
+            background-image: linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md selection:bg-primary/20">
+<!-- Animated Shader Background (Modified for Light Theme) -->
+<div class="fixed inset-0 w-full h-full -z-10 opacity-30">
+<script>
+        // Inline patch for SCREEN_5 to use light colors
+        const originalShader = `{{DATA:SCREEN:SCREEN_5}}`;
+        const lightShader = originalShader
+            .replace(/vec3 color1 = vec3\(0\.043, 0\.063, 0\.125\);/g, "vec3 color1 = vec3(0.97, 0.98, 1.0);") // Light Blue-ish White
+            .replace(/vec3 color2 = vec3\(0\.231, 0\.510, 0\.965\);/g, "vec3 color2 = vec3(0.0, 0.35, 0.75);") // Solid Primary Blue
+            .replace(/vec3 color3 = vec3\(0\.545, 0\.361, 0\.965\);/g, "vec3 color3 = vec3(0.9, 0.95, 1.0);") // Very soft light
+            .replace(/background: #000;/g, "background: transparent;");
+        document.write(lightShader);
+    </script>
+</div>
+<div class="fixed inset-0 grid-overlay -z-20 pointer-events-none"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 border-b border-black/[0.03] bg-white/60 backdrop-blur-xl">
+<div class="flex justify-between items-center max-w-[1200px] mx-auto px-container-padding h-16">
+<div class="flex items-center gap-3 active:scale-95 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-primary text-headline-md">terminal</span>
+<span class="font-display text-headline-md font-bold text-primary tracking-tighter">CommitGenius</span>
+</div>
+<nav class="hidden md:flex gap-8">
+<a class="text-primary font-bold transition-colors duration-300" href="#">Home</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="#">Explore</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-300" href="#">History</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors active:scale-95">GitHub</button>
+<div class="md:hidden">
+<span class="material-symbols-outlined text-on-surface">menu</span>
+</div>
+</div>
+</div>
+</header>
+<main class="relative pt-32 pb-section-margin">
+<div class="max-w-[1200px] mx-auto px-container-padding">
+<!-- Hero Section -->
+<section class="flex flex-col lg:flex-row items-center gap-16 mb-24 reveal" id="hero">
+<div class="flex-1 text-center lg:text-left">
+<h1 class="font-display text-display mb-6 tracking-tight text-on-surface">
+                        GitHub First <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-surface-tint">Commit Finder</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 max-w-xl mx-auto lg:mx-0">
+                        Discover the very first commit of any public GitHub repository in seconds. Trace back the origins of the world's most popular open-source projects.
+                    </p>
+<div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+<span class="px-4 py-1 rounded-full bg-primary/5 text-primary font-label-sm text-label-sm border border-primary/10">React</span>
+<span class="px-4 py-1 rounded-full bg-secondary/5 text-secondary font-label-sm text-label-sm border border-secondary/10">TypeScript</span>
+<span class="px-4 py-1 rounded-full bg-tertiary/5 text-tertiary font-label-sm text-label-sm border border-tertiary/10">Tailwind CSS</span>
+<span class="px-4 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">GitHub API</span>
+</div>
+</div>
+<div class="flex-1 relative flex justify-center items-center">
+<div class="absolute inset-0 bg-primary/5 blur-[80px] rounded-full"></div>
+<div class="w-full">
+<script>
+        // Inline patch for SCREEN_9 to ensure visibility on light background
+        const originalThree = `{{DATA:SCREEN:SCREEN_9}}`;
+        const lightThree = originalThree
+            .replace(/background: #000;/g, "background: transparent;")
+            .replace(/0x3b82f6/g, "0x0058be") // Use theme primary
+            .replace(/0x8b5cf6/g, "0x2170e4") // Use secondary-ish blue
+            .replace(/opacity: 0\.4/g, "opacity: 0.6"); // Slightly more opaque for light background
+        document.write(lightThree);
+    </script>
+</div>
+</div>
+</section>
+<!-- Search Section -->
+<section class="mb-24 reveal">
+<div class="glass-card rounded-[32px] p-8 md:p-12 max-w-3xl mx-auto text-center glow-hover transition-all duration-500">
+<h2 class="font-headline-md text-headline-md mb-8 text-on-surface">Enter Repository URL</h2>
+<div class="relative mb-6">
+<div class="absolute inset-y-0 left-5 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-outline text-[24px]">link</span>
+</div>
+<input class="w-full pl-14 pr-6 py-5 bg-white border border-black/5 rounded-[24px] focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-label-md text-label-md placeholder:text-outline-variant text-on-surface shadow-sm" placeholder="https://github.com/facebook/react" type="text"/>
+</div>
+<button class="w-full md:w-auto px-12 py-5 rounded-[24px] bg-primary text-white font-bold font-display text-body-lg hover:shadow-xl hover:bg-primary-container active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
+<span class="material-symbols-outlined">search</span>
+                        Find First Commit
+                    </button>
+</div>
+</section>
+<!-- Result Section (Mock) -->
+<section class="mb-24 reveal">
+<div class="max-w-4xl mx-auto">
+<div class="flex items-center gap-3 mb-6 px-4">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h3 class="font-label-md text-label-md tracking-widest text-primary font-bold">LATEST RESULT</h3>
+</div>
+<div class="glass-card rounded-[32px] overflow-hidden border-none shadow-xl">
+<div class="p-8 md:p-10 border-b border-black/[0.03] flex flex-col md:flex-row justify-between items-start md:items-center gap-6 bg-white/40">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-secondary">folder_open</span>
+<span class="font-display text-headline-md font-bold text-on-surface">facebook/react</span>
+</div>
+<p class="text-on-surface-variant font-label-sm">Found in 0.42 seconds</p>
+</div>
+<button class="px-6 py-3 rounded-xl border border-black/5 bg-white hover:bg-surface-container-low transition-colors flex items-center gap-2 font-label-md text-label-md text-on-surface shadow-sm">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                                Open on GitHub
+                            </button>
+</div>
+<div class="p-8 md:p-10 bg-white/80">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase mb-4 tracking-widest font-semibold">Commit Message</p>
+<p class="font-display text-headline-md text-primary font-bold">Initial commit</p>
+<div class="mt-8 flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-on-primary font-bold">PH</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-bold">Pete Hunt</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Author</p>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase mb-2 tracking-widest font-semibold">Commit SHA</p>
+<div class="font-label-md text-label-md bg-surface-container-low px-3 py-1.5 rounded-lg border border-black/5 inline-block text-primary font-mono">
+                                            6d7681c2069503...
+                                        </div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase mb-2 tracking-widest font-semibold">Date</p>
+<p class="font-display text-headline-md text-on-surface">May 29, 2013</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">10 years, 8 months ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- How It Works -->
+<section class="mb-24 reveal">
+<div class="text-center mb-16">
+<h2 class="font-headline-lg text-headline-lg mb-4 text-on-surface">How it works</h2>
+<p class="text-on-surface-variant">Simple process to discover the genesis of any repository.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-card-gap">
+<!-- Step 1 -->
+<div class="glass-card rounded-[32px] p-8 glow-hover transition-all duration-300">
+<div class="w-12 h-12 rounded-2xl bg-primary/5 flex items-center justify-center mb-6 border border-primary/10">
+<span class="material-symbols-outlined text-primary">link</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-4 text-on-surface">Paste Link</h4>
+<p class="text-on-surface-variant font-body-md">Simply paste the URL of any public GitHub repository into our search engine.</p>
+</div>
+<!-- Step 2 -->
+<div class="glass-card rounded-[32px] p-8 glow-hover transition-all duration-300 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-[0.03]">
+<span class="material-symbols-outlined text-[100px] text-primary">auto_awesome</span>
+</div>
+<div class="w-12 h-12 rounded-2xl bg-tertiary/5 flex items-center justify-center mb-6 border border-tertiary/10">
+<span class="material-symbols-outlined text-tertiary">database</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-4 text-on-surface">AI Indexing</h4>
+<p class="text-on-surface-variant font-body-md">We use optimized API calls to traverse the git tree and locate the root node instantly.</p>
+</div>
+<!-- Step 3 -->
+<div class="glass-card rounded-[32px] p-8 glow-hover transition-all duration-300">
+<div class="w-12 h-12 rounded-2xl bg-surface-container-highest flex items-center justify-center mb-6 border border-black/5">
+<span class="material-symbols-outlined text-on-surface">history</span>
+</div>
+<h4 class="font-headline-md text-headline-md mb-4 text-on-surface">Genesis Reveal</h4>
+<p class="text-on-surface-variant font-body-md">Behold the original author, the first lines of code, and the timestamp that started it all.</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-section-margin border-t border-black/[0.03] bg-white">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-[1200px] mx-auto px-container-padding gap-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">terminal</span>
+<span class="font-display text-headline-md font-bold text-primary">CommitGenius</span>
+</div>
+<p class="font-label-md text-label-md text-on-surface-variant">© 2024 CommitGenius</p>
+<div class="flex gap-8">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">GitHub</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors underline-offset-4 hover:underline" href="#">LinkedIn</a>
+</div>
+</div>
+</footer>
+<script>
+        // Scroll reveal animation logic
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Basic interactivity for the input field
+        const searchInput = document.querySelector('input[type="text"]');
+        const findButton = document.querySelector('button.bg-primary');
+
+        findButton.addEventListener('click', () => {
+            if (searchInput.value) {
+                const originalContent = findButton.innerHTML;
+                findButton.innerHTML = `<span class="material-symbols-outlined animate-spin">refresh</span> Processing...`;
+                findButton.disabled = true;
+                findButton.style.opacity = "0.7";
+                
+                setTimeout(() => {
+                    findButton.innerHTML = `<span class="material-symbols-outlined">check_circle</span> Complete`;
+                    findButton.classList.replace('bg-primary', 'bg-green-600');
+                    setTimeout(() => {
+                        findButton.innerHTML = originalContent;
+                        findButton.classList.replace('bg-green-600', 'bg-primary');
+                        findButton.disabled = false;
+                        findButton.style.opacity = "1";
+                    }, 2000);
+                }, 1500);
+            }
+        });
+    </script>
+</body></html>
